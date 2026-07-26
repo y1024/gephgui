@@ -47,7 +47,7 @@ export const pref_allow_direct: Writable<boolean> = persistentWritable(
 );
 
 /**
- * Whether devices on the local network remain reachable outside the VPN.
+ * Whether connections to local-network devices bypass Geph's exit.
  * This defaults to true to preserve Geph's existing behavior.
  */
 export const pref_allow_lan: Writable<boolean> = persistentWritable(

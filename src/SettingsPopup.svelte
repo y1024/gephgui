@@ -194,6 +194,13 @@
 
           inner: filterSettings([
             {
+              description: "allow-lan",
+              type: "checkbox",
+              store: pref_allow_lan,
+              blurb: "allow-lan-blurb",
+              onToggle: scheduleTunnelSettingsApply,
+            },
+            {
               description: "exclude-prc",
               type: "checkbox",
               store: pref_use_prc_whitelist,
@@ -213,32 +220,12 @@
       ]),
       // How Geph exposes itself on this device and the local network.
       "local-network": filterSettings([
-        // On platforms where the VPN is not a toggle (mobile), it is inherently
-        // on, so surface allow-lan as its own setting instead of nesting it
-        // under the (hidden) global-vpn toggle.
-        !gate.supports_vpn_conf && {
-          icon: Network,
-          description: "allow-lan",
-          type: "checkbox",
-          store: pref_allow_lan,
-          blurb: "allow-lan-blurb",
-          onToggle: scheduleTunnelSettingsApply,
-        },
         gate.supports_vpn_conf && {
           icon: LockKey,
           description: "global-vpn",
           type: "checkbox",
           store: pref_global_vpn,
           blurb: "global-vpn-blurb",
-          inner: [
-            {
-              description: "allow-lan",
-              type: "checkbox",
-              store: pref_allow_lan,
-              blurb: "allow-lan-blurb",
-              onToggle: scheduleTunnelSettingsApply,
-            },
-          ],
           onToggle: (value: boolean) => {
             // At least one of VPN / proxy mode must stay active.
             if (!value && !get(pref_proxy_mode)) {
