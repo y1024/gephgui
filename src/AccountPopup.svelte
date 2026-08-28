@@ -114,7 +114,7 @@
         loggingOut = true;
         const gate = await native_gate();
         try {
-          await gate.stop_daemon();
+          await gate.logout();
         } catch {}
         try {
           await broker_rpc("delete_account", [$curr_valid_secret]);
@@ -242,7 +242,7 @@
             onclick={async () => {
               loggingOut = true;
               const gate = await native_gate();
-              await gate.stop_daemon();
+              await gate.logout();
               localStorage.clear();
               window.location.reload();
             }}
